@@ -1,6 +1,6 @@
 import loadingImage from '../assets/rolling.svg'
 
-function NoTips() {
+function Loading() {
 
     return (
       <div className='loadingCover'>
@@ -9,4 +9,4 @@ function NoTips() {
     )
   }
   
-  export default NoTips
+  export default Loading
