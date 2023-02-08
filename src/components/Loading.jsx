@@ -1,10 +1,10 @@
-import loadingImage from '../assets/rolling.svg'
+//import loadingImage from '../assets/rolling.svg'
 
 function Loading() {
 
     return (
       <div className='loadingCover'>
-          <img src={loadingImage}/>
+          <h1>loading</h1>
       </div>
     )
   }
