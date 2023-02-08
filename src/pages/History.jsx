@@ -3,16 +3,12 @@ import { db } from '../config/firebase'
 import { collection, query,  getDocs , where } from 'firebase/firestore';
 import NoTips from './NoTips'
 import Loading from '../components/Loading'
-import Card from '../components/Card';
+import CardHistory from '../components/CardHistory';
 
-function Tips() {
+function History() {
 
   let [ tips, setTips ] = useState([])
   let [ loading , doneLoading ] = useState(true)
-
-  let hoursPassed = new Date().getHours()
-  let hoursPassedInSeconds = 3600000 * hoursPassed
-  let midnight = Date.now() - hoursPassedInSeconds
 
   useEffect(() => {
 
@@ -23,7 +19,7 @@ function Tips() {
   async function fetchTips () {
     try {
 
-        let q = query(collection(db, 'tips'), where('createdAt', '>=', new Date(midnight)))
+        let q = query(collection(db, 'tips'), where('state', '!=', 'progress'))
         const data = await getDocs(q)
         data.docs.map(doc => setTips( arr => [...arr, {id : doc.id , tip : doc.data()}]))
         console.log(tips)
@@ -42,7 +38,7 @@ function Tips() {
     <div>
         <div className='tipsCover'>
             <>
-                <h1>Todays Tips</h1>
+                <h1>History</h1>
                 {
                     loading ? <Loading/> :
 
@@ -53,7 +49,7 @@ function Tips() {
 
                             tips.map((data) => (
                                 <div key={data.id}>
-                                    <Card data={data}/>
+                                    <CardHistory data={data}/>
                                 </div>
                             ))
 
@@ -67,4 +63,4 @@ function Tips() {
   )
 }
 
-export default Tips
+export default History
